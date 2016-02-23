@@ -24,4 +24,3 @@ past 1.0.0
 # Development Notes
 *Feb 22/16*
 Currently this re-implementation is under massive research and development and is not usable at this time
-test
