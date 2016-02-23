@@ -19,7 +19,7 @@ class AlertParcer extends Thread
 
     }
 
-    public function start(){
+    public function run(){
 
     }
 }

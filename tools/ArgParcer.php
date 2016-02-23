@@ -25,10 +25,22 @@ final class ArgParcer
 
         // format argv into associative array with keys being the passed flag and the value being the value
         // passed for the flag
+        for($i = 1; $i < count($argv); $i++){
+            $element = $argv[$i];
+            $firstTwo = substr($element, 0, 2);
+            $firstOne = substr($element, 0, 1);
+            if(strcmp($firstTwo,'--')==0){
+                // also look for toggle flags and set them as appropriate
+                //this is a standalone flag?
+            }else if(strcmp($firstOne, "-")==0){
+                //this is a normal flag
+                self::$formattedArguments[$element] = $argv[$i + 1];
+            }else{
+                continue;
+            }
+        }
 
-        // also look for toggle flags and set them as appropriate
-
-        return self::getInstance();
+        return self::$formattedArguments;
     }
 
     public static function getInstance(){

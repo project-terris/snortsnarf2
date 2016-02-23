@@ -14,21 +14,14 @@
  */
 function main($argc, $argv){
 
-    print("HELLO");
-    var_dump($argv);
-    var_dump($argc);
-
-
+    //parse out arguments passed
+    ArgParcer::setupArgParcer($argv);
+    $arguments = ArgParcer::getInstance();
 
 
 
 
 
     return 0;
-
-
-
-
-
 }
 exit(main($argc, $argv));
