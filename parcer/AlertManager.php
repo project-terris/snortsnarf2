@@ -15,4 +15,48 @@
 class AlertManager
 {
 
+    private $unsortedAlerts;
+    private $sortedAlerts;
+    private $mutex;
+
+    public function __construct(){
+        $this->unsortedAlerts = Array();
+        $this->sortedAlerts = Array();
+        $this->mutex = Mutex::create();
+    }
+
+    /**
+     * getUnsortedAlert gets an unsorted alert from the unsortedAlert array. The method uses a mutex to encofrce mutual
+     * exclusion
+     * @return mixed - An alert needing to be sorted
+     */
+    public function getUnsortedAlert(){
+        Mutex::lock($this->mutex);
+
+        $alert =  array_pop($this->unsortedAlerts);
+        Mutex::unlock($this->mutex);
+        return $alert;
+
+    }
+
+    /**
+     * setSortedAlert sets the alert into the sortedAlerts array. It uses mutexes to enforces mutualy exclusive actions
+     * @param $alert - the alert object being added to the sorted arrays
+     */
+    public function setSortedAlert($alert){ //TODO: Specifiy type hinting for the object being sent
+        Mutex::lock($this->mutex);
+
+        array_push($this->sortedAlerts, $alert);
+        Mutex::unlock($this->mutex);
+    }
+
+    /**
+     * getSortedAlerts returns the array of sorted alerts
+     * @return array - the array of parced alerts
+     */
+    public function getSortedAlerts(){
+        return $this->sortedAlerts;
+    }
+
+
 }
