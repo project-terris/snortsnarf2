@@ -1,5 +1,7 @@
 # snortsnarf2
 
+By: Ben S & Sean H
+
 snortsnarf2 is a php re-implementation of the popular snortsnarf perl script program used for parcing snort alert files
 and snort mysql databases. 
 
