@@ -10,18 +10,20 @@
 final class ArgParcer
 {
 
-    private static $unformattedArguments;
+    //private static $unformattedArguments;
     private static $formattedArguments;
 
     private static $instance = null;
+
 
     /**
      * ArgParcer constructor. Made private so that it can not be initialized. This enforces a singleton
      */
     private function __construct(){}
 
-    public static function setupArgParcer($argv){
-        ArgParcer::$unformattedArguments = $argv;
+    public static function formatArguments($argv){
+        //ArgParcer::$unformattedArguments = $argv;
+        $formattedArguments = Array();
 
         // format argv into associative array with keys being the passed flag and the value being the value
         // passed for the flag
@@ -32,19 +34,22 @@ final class ArgParcer
             if(strcmp($firstTwo,'--')==0){
                 // also look for toggle flags and set them as appropriate
                 //this is a standalone flag?
+                $formattedArguments[$element] = true;
+
             }else if(strcmp($firstOne, "-")==0){
                 //this is a normal flag
-                self::$formattedArguments[$element] = $argv[$i + 1];
+                $formattedArguments[$element] = $argv[$i + 1];
             }else{
                 continue;
             }
         }
 
-        return self::$formattedArguments;
+        return $formattedArguments;
     }
 
-    public static function getInstance(){
+    public static function getInstance($formattedArguments){
         if(self::$instance == null){
+            self::$formattedArguments = $formattedArguments;
             self::$instance = new ArgParcer();
         }
         return self::$instance;
@@ -66,5 +71,39 @@ final class ArgParcer
         }else{
             return null;
         }
+    }
+
+
+    /**
+     * getFlags generates a flag object containing all of the enabled valid flags passed in as arg parameters. This
+     * method is primarily implemented as a helper method for the logging class
+     * @return FLAGS
+     */
+    public function getFlags(){
+        $flags = new FLAGS();
+
+        foreach(self::$formattedArguments as $key => $value){
+            if($value == true){
+                //get the parameter passed key and convert to uppercase if it was not passed that way
+                $trimmedKey = substr($key, 2, sizeof($key));
+                $trimmedKey = strtoupper($trimmedKey);
+                //get all class properties in the flags object
+                $variables = get_object_vars($flags);
+
+                //search for a matching attribute in the FLAGS object
+                foreach($variables as $variable => $type){
+
+                    //if they match, set the attribute to true
+                    if(strcmp($trimmedKey, $variable)==0){
+                        $flags->$variable = true;
+                    }
+
+                }
+
+
+            }
+        }
+
+        return $flags;
     }
 }
