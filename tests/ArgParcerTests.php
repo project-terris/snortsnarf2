@@ -11,7 +11,7 @@ class ArgParcerTests extends PHPUnit_Framework_TestCase
 
     public function testFormatArgumentsAssertEmpty()
     {
-        $response = ArgParcer::formatArguments(null);
+        $response = ArgParcer::formatArguments(Array());
 
         $this->assertEmpty($response);
     }
@@ -23,5 +23,12 @@ class ArgParcerTests extends PHPUnit_Framework_TestCase
         $response = ArgParcer::formatArguments($parameters);
 
         $this->assertNotEmpty($response);
+    }
+
+    public function testGetInstanceAssertInstanceOf(){
+
+        $instance = ArgParcer::getInstance(Array());
+
+        $this->assertInstanceOf("ArgParcer", $instance);
     }
 }

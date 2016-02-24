@@ -21,7 +21,7 @@ final class ArgParcer
      */
     private function __construct(){}
 
-    public static function formatArguments($argv){
+    public static function formatArguments(Array $argv){
         //ArgParcer::$unformattedArguments = $argv;
         $formattedArguments = Array();
 
@@ -47,7 +47,7 @@ final class ArgParcer
         return $formattedArguments;
     }
 
-    public static function getInstance($formattedArguments){
+    public static function getInstance(Array $formattedArguments){
         if(self::$instance == null){
             self::$formattedArguments = $formattedArguments;
             self::$instance = new ArgParcer();
