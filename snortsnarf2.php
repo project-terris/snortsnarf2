@@ -1,4 +1,5 @@
 <?php
+require_once('./lib/AutoLoader.php');
 /**
  * Created by PhpStorm.
  * User: bensoer
@@ -15,11 +16,12 @@
 function main($argc, $argv){
 
     //parse out arguments passed
-    ArgParcer::setupArgParcer($argv);
-    $arguments = ArgParcer::getInstance();
+    $formattedArguments = ArgParcer::formatArguments($argv);
+    $arguments = ArgParcer::getInstance($formattedArguments);
 
-
-
+    //setup logger
+    Logger::setLogger($arguments->getFlags());
+    Logger::varDump(new FLAGS(), $formattedArguments);
 
 
     return 0;
