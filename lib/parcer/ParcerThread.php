@@ -12,7 +12,7 @@ require_once('AlertManager.php');
  */
 
 
-class AlertParcer extends Thread
+class ParcerThread extends Thread
 {
 
     public function __construct(AlertManager $manager){
