@@ -47,7 +47,7 @@ final class ArgParcer
         return $formattedArguments;
     }
 
-    public static function getInstance(Array $formattedArguments){
+    public static function getInstance(Array $formattedArguments = Array()){
         if(self::$instance == null){
             self::$formattedArguments = $formattedArguments;
             self::$instance = new ArgParcer();

@@ -23,6 +23,16 @@ function main($argc, $argv){
     Logger::setLogger($arguments->getFlags());
     Logger::varDump(new FLAGS(), $formattedArguments);
 
+    //get whatever we are reading data from -> The returned type is an IReader
+    $dataSource = ReaderFactory::determineSource($arguments);
+
+    //now start creating threads
+
+    //tell threads to begin executing
+
+    //now start getting each entry and putting them into the AlertManager
+    //$dataSource->getNextEntry();
+
 
     return 0;
 }
