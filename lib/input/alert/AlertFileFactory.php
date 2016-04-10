@@ -21,5 +21,10 @@ class AlertFileFactory
      */
     public static function getFile($fileDir){
 
+        return self::toIAlertFile(null);
+    }
+
+    private static function toIAlertFile(IAlertFile $object){
+        return $object;
     }
 }

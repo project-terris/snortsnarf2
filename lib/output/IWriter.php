@@ -3,10 +3,10 @@
 /**
  * Created by PhpStorm.
  * User: bensoer
- * Date: 24/02/16
- * Time: 12:34 PM
+ * Date: 10/04/16
+ * Time: 1:48 PM
  */
-class HTMLGenerator
+interface IWriter
 {
 
 }

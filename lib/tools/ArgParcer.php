@@ -81,6 +81,7 @@ final class ArgParcer
      */
     public function getFlags(){
         $flags = new FLAGS();
+        $variables = get_object_vars($flags);
 
         foreach(self::$formattedArguments as $key => $value){
             if($value == true){
@@ -88,7 +89,6 @@ final class ArgParcer
                 $trimmedKey = substr($key, 2, sizeof($key));
                 $trimmedKey = strtoupper($trimmedKey);
                 //get all class properties in the flags object
-                $variables = get_object_vars($flags);
 
                 //search for a matching attribute in the FLAGS object
                 foreach($variables as $variable => $type){

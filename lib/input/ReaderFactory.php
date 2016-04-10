@@ -19,7 +19,7 @@ class ReaderFactory
      * and SQL connection and returns the appropritate IReader object
      * @param ArgParcer $arguments - The parameter passed arguments containing results as to whether configuration
      * involves an alert file or an sql connection or anything else that is an IReader
-     * @return
+     * @return IReader
      */
     public static function determineSource(ArgParcer $arguments){
         //TODO: Implement logic to determine from the passed in arguments what the source object is
@@ -31,6 +31,12 @@ class ReaderFactory
         an AlertFileReader
         */
 
-        return null;
+        //example of how to return result as an IReader
+        $sqliteDBReader = new SQLDatabaseReader();
+        return self::toIReader($sqliteDBReader);
+    }
+
+    private static function toIReader(IReader $object){
+        return $object;
     }
 }
