@@ -11,6 +11,10 @@ class WriterFactory
 
     public static function determineOutput(ArgParcer $argument){
 
-        return null;
+        return self::toIWriter(null);
+    }
+
+    private static function toIWriter(IWriter $object){
+        return $object;
     }
 }
