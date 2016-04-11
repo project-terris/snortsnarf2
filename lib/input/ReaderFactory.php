@@ -20,6 +20,7 @@ class ReaderFactory
      * @param ArgParcer $arguments - The parameter passed arguments containing results as to whether configuration
      * involves an alert file or an sql connection or anything else that is an IReader
      * @return IReader
+     * @throws ReaderException - Thrown when a source can not be determined from the passed parameters
      */
     public static function determineSource(ArgParcer $arguments){
         //TODO: Implement logic to determine from the passed in arguments what the source object is
@@ -31,9 +32,16 @@ class ReaderFactory
         an AlertFileReader
         */
 
-        //example of how to return result as an IReader
-        $sqliteDBReader = new SQLDatabaseReader();
-        return self::toIReader($sqliteDBReader);
+        $alertFile = $arguments->getValue('-a');
+        if($alertFile != null){
+
+            $alertFile = AlertFileFactory::getFile($alertFile);
+            $alertFileReader = new AlertFileReader($alertFile);
+            return self::toIReader($alertFileReader);
+
+        }
+
+        throw new ReaderException("ReaderFactory - Unable To Determine Source From Passed Arguments");
     }
 
     private static function toIReader(IReader $object){

@@ -11,7 +11,10 @@ class WriterFactory
 
     public static function determineOutput(ArgParcer $argument){
 
-        return self::toIWriter(null);
+
+        $outputLocation = $argument->getValue('-d');
+
+
     }
 
     private static function toIWriter(IWriter $object){
