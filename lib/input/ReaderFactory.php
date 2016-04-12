@@ -32,7 +32,7 @@ class ReaderFactory
         an AlertFileReader
         */
 
-        $alertFile = $arguments->getValue('-a');
+        $alertFile = $arguments->getValue(PARAMETERKEYS::ALERTSRCDIR);
         if($alertFile != null){
 
             $alertFile = AlertFileFactory::getFile($alertFile);

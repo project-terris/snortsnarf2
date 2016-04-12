@@ -12,7 +12,8 @@ class WriterFactory
     public static function determineOutput(ArgParcer $argument){
 
 
-        $outputLocation = $argument->getValue('-d');
+        $outputLocation = $argument->getValue(PARAMETERKEYS::HTMLDESTDIR);
+
 
 
     }
