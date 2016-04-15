@@ -6,6 +6,11 @@
  * Date: 14/04/16
  * Time: 8:22 PM
  */
+
+/**
+ * Class CommonAlertFile is an abstract class that defines common helper functionality needed for reading an alert file.
+ * It allows each alert file to share code between eachother who have near identical functionality
+ */
  abstract class CommonAlertFile
 {
      protected $fileDir;
@@ -29,6 +34,7 @@
         }
     }
 
+     /* -- DEPRECATED -- */
      private final function findLastSlash($fileDir){
 
          $lastSlash = strrpos($fileDir, "/");
@@ -45,6 +51,7 @@
 
      }
 
+     /* -- DEPRECATED -- */
      private final function createEditableCopy(){
 
          $fileName = substr($this->fileDir, $this->findLastSlash($this->fileDir), strlen($this->fileDir));
@@ -91,6 +98,13 @@
          }
      }
 
+     /**
+      * cleanAlertFileEntry is a helper method that cleans the passed in alert file entry from \n and double spaces in
+      * the alert entry
+      * @param $string - the alert file entry
+      * @return String - the cleaned alert file entry
+      * @throws ReaderException - Thrown when the passed in parameter is not a string
+      */
      protected function cleanAlertFileEntry($string){
          TypeValidator::isString($string, false, true, new ReaderException("CommonAlertFile - Alert File Entry Passed Is Not A String"));
 

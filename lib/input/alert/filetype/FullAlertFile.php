@@ -6,6 +6,10 @@
  * Date: 30/03/16
  * Time: 5:36 PM
  */
+/**
+ * Class FullAlertFile represents a manager for a snort alert file that was generated on full mode. It implements the
+ * CommonAlertFile class to access shared functionality and implements an IAlertFile to give a public interface
+ */
 class FullAlertFile extends CommonAlertFile implements IAlertFile
 {
 
@@ -13,6 +17,11 @@ class FullAlertFile extends CommonAlertFile implements IAlertFile
         parent::__construct($fileDir, self::class);
     }
 
+    /**
+     * getNextEntry fetches the next entry in the full alert file so that it can be processes by the parser. This method
+     * implements the IAlertFile as part of its public interface
+     * @return string - The fast alert entry as a cleaned string
+     */
     public function getNextEntry(){
 
         //initialize variables

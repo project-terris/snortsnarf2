@@ -6,6 +6,11 @@
  * Date: 30/03/16
  * Time: 5:35 PM
  */
+
+/**
+ * Class FastAlertFile represents a manager for a snort alert file that was generated on fast mode. It implements the
+ * CommonAlertFile class to access shared functionality and implements an IAlertFile to give a public interface
+ */
 class FastAlertFile extends CommonAlertFile implements IAlertFile
 {
 
@@ -13,6 +18,11 @@ class FastAlertFile extends CommonAlertFile implements IAlertFile
         parent::__construct($fileDir, self::class);
     }
 
+    /**
+     * getNextEntry fetches the next entry in the fast alert file so that it can be processes by the parser. This method
+     * implements the IAlertFile as part of its public interface
+     * @return string - The fast alert entry as a cleaned string
+     */
     public function getNextEntry(){
 
         //initialize variables
