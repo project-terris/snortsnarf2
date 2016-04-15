@@ -18,6 +18,8 @@ class AlertFileFactory
      * getFile gets the passed in file and determines whether it is a FastAlertFile or a FullAlertFile and creates
      * the appropriate object before returning it for the designated file
      * @param $fileDir String - the directory to the alert file
+     * @return IAlertFile - An alert file parser upcasted to the parent type
+     * @throws ReaderException - thrown when getFile fails to determine what the source file type is
      */
     public static function getFile($fileDir){
 
@@ -63,6 +65,12 @@ class AlertFileFactory
         throw new ReaderException("AlertFileFactory - Failed To Determine File Type From Parsed Content");
     }
 
+    /**
+     * isFastAlertFile determines if the passed in string representing a cleaned entry meets criteria to be a fast alert
+     * file
+     * @param $string String - a cleaned snort log file entry
+     * @return bool - status as to whether the string belongs to a fast alert file. TRUE if it is, FALSE if not
+     */
     private static function isFastAlertFile($string){
 
         $classification = strpos($string, "Classification:");
@@ -73,6 +81,12 @@ class AlertFileFactory
         return ($classification && $priority && $protocol & $iptransfer);
     }
 
+    /**
+     * isFullAlertFile determines if the passed in string representing a cleaned entry meets the criteria to be a fast alert
+     * file log entry
+     * @param $string String - a cleaned snort log file entry
+     * @return bool - status as to whether the string belongs to a full alert file. TRUE if it is, FALSE if not
+     */
     private static function isFullAlertFile($string){
 
         $classification = strpos($string, "Classification:");
@@ -89,11 +103,18 @@ class AlertFileFactory
 
     }
 
+    /**
+     * containsACompleteEntry determines from the passed in string whether it contains all content to be equivalent to 1
+     * entry in any generated alert file from snort. Note if there is more then one entry, this function will also return
+     * true. containsACompleteEntry only ensures the minimum of one entry is present in the passed in string
+     * @param $string String - contents of a snort alert file that may contain a single entry
+     * @return bool - status as to whether the passed in string does contain a snort alert file entry. TRUE if it does,
+     * FALSE if it does not
+     */
     private static function containsACompleteEntry($string){
 
         $firstSeperator = strpos($string, "[**]");
         if($firstSeperator === false){
-
             return false;
         }else{
             $secondSeperator = strpos($string, "[**]", $firstSeperator + 4);
@@ -112,6 +133,12 @@ class AlertFileFactory
 
     }
 
+    /**
+     * toIAlertFile converts the passed in object to the generic parent type so that the client has an
+     * abstract interface to interact with the alert file regardless of what type it is
+     * @param IAlertFile $object - the object being upcasted
+     * @return IAlertFile - the passed in object, upcasted as an IAlertFile
+     */
     private static function toIAlertFile(IAlertFile $object){
         return $object;
     }
