@@ -12,19 +12,20 @@
      protected $fp;
 
     protected function __construct($fileDir, $childClassName){
+        TypeValidator::isString($fileDir, false, true, new ReaderException("CommonAlertFile - Directory Passed Is Not A String"));
 
-        if(file_exists($fileDir) && is_file($fileDir)){
+        if(FileValidator::isValidFile($fileDir)){
 
             $this->fileDir = $fileDir;
 
-            if(is_readable($this->fileDir)){
+            if(FileValidator::isReadableFile($fileDir)){
                 $this->fp = fopen($fileDir, 'r');
             }else{
                 throw new ReaderException("CommonAlertFile ($childClassName) - File Passed In Constructor Is Not Readable ($fileDir)");
             }
 
         }else{
-            throw new ReaderException("CommonAlertFile ($childClassName) - File Passed In Constructor Not Found ($fileDir)");
+            throw new ReaderException("CommonAlertFile ($childClassName) - File Passed In Constructor Not Found Or Valid ($fileDir)");
         }
     }
 
@@ -70,6 +71,7 @@
       * FALSE if it does not
       */
      protected function containsACompleteEntry($string){
+         TypeValidator::isString($string, false, true, new ReaderException("CommonAlertFile - Alert File Entry Passed Is Not A String"));
 
          $firstSeperator = strpos($string, "[**]");
          if($firstSeperator === false){
@@ -90,6 +92,7 @@
      }
 
      protected function cleanAlertFileEntry($string){
+         TypeValidator::isString($string, false, true, new ReaderException("CommonAlertFile - Alert File Entry Passed Is Not A String"));
 
          $trimmedEntry = str_replace("  "," ", $string);
          $trimmedEntry = str_replace("\n","", $trimmedEntry);

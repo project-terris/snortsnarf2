@@ -13,6 +13,19 @@
  */
 class AlertFileFactory
 {
+    private static function validateFileDirectory($fileDir){
+        TypeValidator::isString($fileDir, false, true, new ReaderException("AlertFileFactory - Directory Passed Is Not A String"));
+
+        //check the file is valid
+        if(!FileValidator::isValidFile($fileDir)){
+            throw new ReaderException("AlertFileFactory - File Passed In Not Found Or Valid ($fileDir)");
+        }else{
+            //check the file is readable
+            if(!FileValidator::isReadableFile($fileDir)){
+                throw new ReaderException("AlertFileFactory - File Passed In Is Not Readable ($fileDir)");
+            }
+        }
+    }
 
     /**
      * getFile gets the passed in file and determines whether it is a FastAlertFile or a FullAlertFile and creates
@@ -22,6 +35,8 @@ class AlertFileFactory
      * @throws ReaderException - thrown when getFile fails to determine what the source file type is
      */
     public static function getFile($fileDir){
+        TypeValidator::isString($fileDir, false, true, new ReaderException("AlertFileFactory - Directory Passed Is Not A String"));
+        self::validateFileDirectory($fileDir);
 
         //open the file
         $fp = fopen($fileDir, 'r');
@@ -72,6 +87,7 @@ class AlertFileFactory
      * @return bool - status as to whether the string belongs to a fast alert file. TRUE if it is, FALSE if not
      */
     private static function isFastAlertFile($string){
+        TypeValidator::isString($string, false, true, new ReaderException("AlertFileFactory - Snort Log Entry Is Not A String"));
 
         $classification = strpos($string, "Classification:");
         $priority = strpos($string, "Priority:");
@@ -88,6 +104,7 @@ class AlertFileFactory
      * @return bool - status as to whether the string belongs to a full alert file. TRUE if it is, FALSE if not
      */
     private static function isFullAlertFile($string){
+        TypeValidator::isString($string, false, true, new ReaderException("AlertFileFactory - Snort Log Entry Is Not A String"));
 
         $classification = strpos($string, "Classification:");
         $priority = strpos($string, "Priority:");
@@ -112,6 +129,7 @@ class AlertFileFactory
      * FALSE if it does not
      */
     private static function containsACompleteEntry($string){
+        TypeValidator::isString($string, false, true, new ReaderException("AlertFileFactory - Snort Log Entry Is Not A String"));
 
         $firstSeperator = strpos($string, "[**]");
         if($firstSeperator === false){
