@@ -54,11 +54,11 @@ class AlertFileFactory
         //determine type and return cast to generic parent type
         if(self::isFastAlertFile($trimmedEntry)){
             Logger::debug("AlertFileFactory - Detected Entry Belongs To A Fast Alert File. Now Creating.\n");
-            $fastAlertFile = new FastAlertFile();
+            $fastAlertFile = new FastAlertFile($fileDir);
             return self::toIAlertFile($fastAlertFile);
         }else if(self::isFullAlertFile($trimmedEntry)){
             Logger::debug("AlertFileFactory - Detected Entry Belongs To A Full Alert File. Now Creating.\n");
-            $fullAlertFile = new FullAlertFile();
+            $fullAlertFile = new FullAlertFile($fileDir);
             return self::toIAlertFile($fullAlertFile);
         }
 
@@ -129,8 +129,6 @@ class AlertFileFactory
                 }
             }
         }
-
-
     }
 
     /**

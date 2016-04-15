@@ -24,5 +24,8 @@ class AlertFileReader implements IReader
      */
     public function getNextEntry(){
 
+        
+
+
     }
 }

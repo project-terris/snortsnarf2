@@ -23,7 +23,6 @@ class ReaderFactory
      * @throws ReaderException - Thrown when a source can not be determined from the passed parameters
      */
     public static function determineSource(ArgParcer $arguments){
-        //TODO: Implement logic to determine from the passed in arguments what the source object is
 
         /* Notes:
         - You are creating either an AlertFileReader class or an SQLDatabaseReader class.
