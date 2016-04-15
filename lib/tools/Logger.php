@@ -37,7 +37,7 @@ class Logger
      * @param $message String - the message being printed
      */
     public static function debug($message){
-        if(self::$flags.DEBUG){
+        if(self::$flags->DEBUG){
             print($message);
         }
     }
@@ -47,7 +47,7 @@ class Logger
      * @param $message String - the message being printed
      */
     public static function benchmark($message){
-        if(self::$flags.BENCHMARK){
+        if(self::$flags->BENCHMARK){
             print($message);
         }
     }

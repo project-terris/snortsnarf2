@@ -19,7 +19,7 @@ class ReaderFactory
      * and SQL connection and returns the appropritate IReader object
      * @param ArgParcer $arguments - The parameter passed arguments containing results as to whether configuration
      * involves an alert file or an sql connection or anything else that is an IReader
-     * @return IReader
+     * @return IReader - A generic object pointing to the source
      * @throws ReaderException - Thrown when a source can not be determined from the passed parameters
      */
     public static function determineSource(ArgParcer $arguments){

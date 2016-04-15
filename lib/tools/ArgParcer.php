@@ -86,7 +86,7 @@ final class ArgParcer
         foreach(self::$formattedArguments as $key => $value){
             if($value == true){
                 //get the parameter passed key and convert to uppercase if it was not passed that way
-                $trimmedKey = substr($key, 2, sizeof($key));
+                $trimmedKey = substr($key, 2, strlen($key));
                 $trimmedKey = strtoupper($trimmedKey);
                 //get all class properties in the flags object
 
