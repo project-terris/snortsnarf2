@@ -23,6 +23,6 @@ class AlertFileReader implements IReader
      * getEntry fetches the next alert entry from the alertFile
      */
     public function getNextEntry(){
-
+        return $this->alertFile->getNextEntry();
     }
 }

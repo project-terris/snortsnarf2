@@ -11,7 +11,11 @@ class WriterFactory
 
     public static function determineOutput(ArgParcer $argument){
 
-        return self::toIWriter(null);
+
+        $outputLocation = $argument->getValue(PARAMETERKEYS::HTMLDESTDIR);
+
+
+
     }
 
     private static function toIWriter(IWriter $object){

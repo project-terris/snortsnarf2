@@ -8,6 +8,22 @@ require_once('./lib/AutoLoader.php');
  */
 
 /**
+ * displayVersion displays version information for snortsnarf2
+ */
+function displayVersion(){
+    $ini = parse_ini_file(__DIR__ . "/app.ini");
+    print($ini['app_name'] . " Version: " . $ini['app_version'] . "\n");
+}
+
+/**
+ * displayHelp displays basic help information for snortsnarf2
+ */
+function displayHelp(){
+    print("Please see Github Wiki Page for Help: https://github.com/project-terris/snortsnarf2/wiki\n");
+}
+
+
+/**
  * main entrance point to the snortsnarf2 program
  * @param $argc Int - the number of parameters passed
  * @param $argv Array - the parameters passed
@@ -18,6 +34,16 @@ function main($argc, $argv){
     //parse out arguments passed
     $formattedArguments = ArgParcer::formatArguments($argv);
     $arguments = ArgParcer::getInstance($formattedArguments);
+
+    if($arguments->getValue(PARAMETERKEYS::VERSION)){
+        displayVersion();
+        return 0;
+    }
+
+    if($arguments->getValue(PARAMETERKEYS::HELP)){
+        displayHelp();
+        return 0;
+    }
 
     //setup logger
     Logger::setLogger($arguments->getFlags());

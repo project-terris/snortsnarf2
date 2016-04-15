@@ -9,4 +9,10 @@
 interface IAlertFile
 {
 
+    /**
+     * getNextEntry defines functionality for fetching the next entry out of the alert file as a string and returning
+     * it as this completed string
+     * @return String - a string representation of the alert file entry
+     */
+    public function getNextEntry();
 }

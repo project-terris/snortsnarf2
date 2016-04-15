@@ -1,25 +1,25 @@
 [**] [1:1384:8] MISC UPnP malformed advertisement [**]
-[Classification: Misc Attack] [Priority: 2] 
+[Classification: Misc Attack] [Priority: 2]
 06/12-17:57:20.468295 192.168.0.1:1901 -> 239.255.255.250:1900
 UDP TTL:4 TOS:0x0 ID:57005 IpLen:20 DgmLen:312
 Len: 284
 [Xref => http://www.microsoft.com/technet/security/bulletin/MS01-059.mspx][Xref => http://cve.mitre.org/cgi-bin/cvename.cgi?name=2001-0877][Xref => http://cve.mitre.org/cgi-bin/cvename.cgi?name=2001-0876][Xref => http://www.securityfocus.com/bid/3723]
 
 [**] [1:1620:5] BAD TRAFFIC Non-Standard IP protocol [**]
-[Classification: Detection of a Non-Standard Protocol or Event] [Priority: 2] 
+[Classification: Detection of a Non-Standard Protocol or Event] [Priority: 2]
 06/12-17:57:20.468295 192.168.0.1:1901 -> 239.255.255.250:1900
 UDP TTL:4 TOS:0x0 ID:57005 IpLen:20 DgmLen:312
 Len: 284
 
 [**] [1:1384:8] MISC UPnP malformed advertisement [**]
-[Classification: Misc Attack] [Priority: 2] 
+[Classification: Misc Attack] [Priority: 2]
 06/12-17:57:20.478310 192.168.0.1:1901 -> 239.255.255.250:1900
 UDP TTL:4 TOS:0x0 ID:57005 IpLen:20 DgmLen:304
 Len: 276
 [Xref => http://www.microsoft.com/technet/security/bulletin/MS01-059.mspx][Xref => http://cve.mitre.org/cgi-bin/cvename.cgi?name=2001-0877][Xref => http://cve.mitre.org/cgi-bin/cvename.cgi?name=2001-0876][Xref => http://www.securityfocus.com/bid/3723]
 
 [**] [1:1620:5] BAD TRAFFIC Non-Standard IP protocol [**]
-[Classification: Detection of a Non-Standard Protocol or Event] [Priority: 2] 
+[Classification: Detection of a Non-Standard Protocol or Event] [Priority: 2]
 06/12-17:57:20.478310 192.168.0.1:1901 -> 239.255.255.250:1900
 UDP TTL:4 TOS:0x0 ID:57005 IpLen:20 DgmLen:304
 Len: 276
