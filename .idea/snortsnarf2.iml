@@ -7,10 +7,10 @@
     <orderEntry type="module-library">
       <library name="PHARS">
         <CLASSES>
-          <root url="phar://$MODULE_DIR$/tests/phpunit-5.2.9.phar/" />
+          <root url="phar://$MODULE_DIR$/tests/libs/phpunit-5.2.9.phar/" />
         </CLASSES>
         <SOURCES>
-          <root url="phar://$MODULE_DIR$/tests/phpunit-5.2.9.phar/" />
+          <root url="phar://$MODULE_DIR$/tests/libs/phpunit-5.2.9.phar/" />
         </SOURCES>
       </library>
     </orderEntry>
