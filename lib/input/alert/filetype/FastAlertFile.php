@@ -33,21 +33,55 @@ class FastAlertFile extends CommonAlertFile implements IAlertFile
         $nextLine = fgets($this->fp);
         $fullString .= $nextLine;
 
-        //keep going until we have something that contains an entry
-        while(!$this->containsACompleteEntry($fullString)){
-            $nextLine = fgets($this->fp);
-            $fullString .= $nextLine;
+        if($nextLine !== false){
+            //keep going until we have something that contains an entry
+            while(!$this->containsACompleteEntry($fullString)){
+                $nextLine = fgets($this->fp);
+
+                if($nextLine === false){
+                    Logger::debug(self::class . " - End Of Alert File Reached Or An Error Has Occurred Mid Parsing of An Entry\n");
+                    break;
+                }else{
+                    $fullString .= $nextLine;
+                }
+
+            }
+        }else{
+            Logger::debug(self::class . " - End Of Alert File Reached Or An Error Has Occurred On First Read Attempt To Create Next Entry\n");
+            return null;
         }
 
-        //now we need to rewind. move the fp back to before the last entry, since it will always go 1 too far
-        fseek($this->fp, strlen($nextLine), SEEK_CUR);
+        //as long as the string is longer then 0, means there is something we should try and process
+        if(strlen($fullString) > 0){
 
-        //trim out the last entry because checker overshoots the entry into the next one
-        $trimmedEntry = substr($fullString, 0, strpos($fullString, $nextLine));
-        //clean the entry
-        $trimmedEntry = $this->cleanAlertFileEntry($trimmedEntry);
+            //trim out the last entry because checker overshoots the entry into the next one
+            $trimmedEntry = substr($fullString, 0, strpos($fullString, $nextLine));
+            //clean the entry
+            $trimmedEntry = $this->cleanAlertFileEntry($trimmedEntry);
 
-        return $trimmedEntry;
+            //make sure that the string we gathered wasn't just end of file spaces or return characters
+            if(strlen($fullString) > 0){
+
+                //now we need to rewind. move the fp back to before the last entry, since it will always go 1 too far
+                fseek($this->fp, (-1 * strlen($nextLine)), SEEK_CUR);
+
+                $dataEntry = new DataEntry();
+                $dataEntry->dataString = $trimmedEntry;
+                $dataEntry->fileType = self::class;
+
+                return $dataEntry;
+            }else{
+                Logger::debug(self::class . " - End Of Alert File Reached Or An Error Has Occurred\n");
+                return null;
+
+            }
+
+        }else{
+            Logger::debug(self::class . " - Detected An Empty FullString. This Condition Should Not Occur. Error Has Potentialy Occurred\n");
+            return null;
+        }
+
+
 
     }
 }

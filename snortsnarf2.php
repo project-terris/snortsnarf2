@@ -31,6 +31,7 @@ function displayHelp(){
  */
 function main($argc, $argv){
 
+    $startTime = time();
     //parse out arguments passed
     $formattedArguments = ArgParcer::formatArguments($argv);
     $arguments = ArgParcer::getInstance($formattedArguments);
@@ -47,19 +48,36 @@ function main($argc, $argv){
 
     //setup logger
     Logger::setLogger($arguments->getFlags());
-    Logger::varDump(new FLAGS(), $formattedArguments);
+    //Logger::debug($formattedArguments);
 
     //get whatever we are reading data from -> The returned type is an IReader
     $dataSource = ReaderFactory::determineSource($arguments);
 
+    $numberOfParserThreads = $arguments->getValue(PARAMETERKEYS::PARSERTHREADS);
+    if($numberOfParserThreads == null){
+        $numberOfParserThreads = 3;
+    }
+
+    $entryToParseQueue = new EntryQueue();
+    $allThreads = array();
     //now start creating threads
+    for($i = 0; $i < $numberOfParserThreads; $i++){
+        $parcerThread = new ParcerThread($entryToParseQueue);
+        $allThreads[] = $parcerThread;
+    }
 
     //tell threads to begin executing
 
     //now start getting each entry and putting them into the AlertManager
-    //$dataSource->getNextEntry();
+    $count = 0;
+    while(($entry = $dataSource->getNextEntry()) != null){
+        $count++;
+        Logger::debug(" " . Thread::getCurrentThreadId() . " - Adding Entry $count\n");
+        $entryToParseQueue->setUnsortedAlert($entry);
+    }
 
-
+    $endTime = time();
+    Logger::benchmark("Total Execution Time On Main Thread: " . ($endTime - $startTime) . " second(s)\n");
 
     return 0;
 }

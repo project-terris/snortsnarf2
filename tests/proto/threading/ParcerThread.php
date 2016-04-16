@@ -1,4 +1,5 @@
 <?php
+require_once('EntryQueue.php');
 
 /**
  * Created by PhpStorm.
@@ -11,18 +12,15 @@
  */
 
 
+
 class ParcerThread extends Thread
 {
 
-    private $queue;
-
-    public function __construct(EntryQueue $queue){
-        $this->queue = $queue;
+    public function __construct(EntryQueue $manager){
+        print(Thread::getCurrentThreadId());
     }
 
     public function run(){
-        Logger::debug($this->getThreadId() ." - Starting Thread\n");
-
 
     }
 }
