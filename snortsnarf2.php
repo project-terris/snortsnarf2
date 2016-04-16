@@ -68,7 +68,7 @@ function main($argc, $argv){
 
     //tell threads to begin executing
 
-    //now start getting each entry and putting them into the AlertManager
+    //now start getting each entry and putting them into the EntryQueue
     $count = 0;
     while(($entry = $dataSource->getNextEntry()) != null){
         $count++;
