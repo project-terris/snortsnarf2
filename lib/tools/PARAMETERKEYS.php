@@ -15,4 +15,6 @@ class PARAMETERKEYS
     const HELP = "--HELP";
     const VERSION = "--VERSION";
 
+    const PARSERTHREADS = "-j";
+
 }
