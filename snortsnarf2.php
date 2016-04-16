@@ -47,17 +47,29 @@ function main($argc, $argv){
 
     //setup logger
     Logger::setLogger($arguments->getFlags());
-    Logger::varDump(new FLAGS(), $formattedArguments);
+    Logger::debug(var_dump($formattedArguments));
 
     //get whatever we are reading data from -> The returned type is an IReader
     $dataSource = ReaderFactory::determineSource($arguments);
 
+
     //now start creating threads
+
 
     //tell threads to begin executing
 
     //now start getting each entry and putting them into the AlertManager
     //$dataSource->getNextEntry();
+    $entryToParseQueue = new EntryQueue();
+    $parcerThread = new ParcerThread($entryToParseQueue);
+
+    $count = 0;
+    while(($entry = $dataSource->getNextEntry()) != null){
+        $count++;
+        Logger::debug(" " . Thread::getCurrentThreadId() . " - Adding Entry $count\n");
+        $entryToParseQueue->setUnsortedAlert($entry);
+    }
+
 
 
 
