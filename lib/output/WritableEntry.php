@@ -23,4 +23,8 @@ class WritableEntry
      * store additional meta information or data that the writer may need in order to successfuly write the $completeString
      */
     public $parsedObject;
+    /**
+     * @var type determines what kinda of writeable entry this is
+     */
+    public $type;
 }

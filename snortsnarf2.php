@@ -64,6 +64,9 @@ function main($argc, $argv){
     $entryToParseQueue = new EntryQueue();
     $dataSource = ReaderFactory::determineSource($arguments);
 
+    //start the output thread
+    $outputDestination->start();
+
     //determine how many parser threads were making
     $numberOfParserThreads = $arguments->getValue(PARAMETERKEYS::PARSERTHREADS);
     if($numberOfParserThreads == null){
@@ -73,7 +76,7 @@ function main($argc, $argv){
     $allThreads = array();
     //now start creating threads
     for($i = 0; $i < $numberOfParserThreads; $i++){
-        $parcerThread = new ParcerThread($entryToParseQueue, $outputQueue);
+        $parcerThread = new ParcerThread($entryToParseQueue, $outputQueue, get_class($outputDestination));
         $allThreads[] = $parcerThread;
     }
 

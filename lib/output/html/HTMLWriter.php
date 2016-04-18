@@ -21,7 +21,8 @@ class HTMLWriter extends Thread implements IWriter
     }
 
     public function run(){
-        Logger::debug($this->getThreadId() ." - Starting Thread\n");
+        //Logger::debug(" " . $this->getThreadId() ." - Starting " . strval(self::class) . " Thread\n");
+        Logger::debug("HELLOO");
 
 
     }
