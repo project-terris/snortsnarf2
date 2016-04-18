@@ -10,7 +10,9 @@ class PARAMETERKEYS
 {
     const ALERTSRCDIR = "-a";
     const HTMLDESTDIR = "-d";
+
     const DBCONNSTRING = "-db";
+    const DBOUTSTRING = "-dbo";
 
     const HELP = "--HELP";
     const VERSION = "--VERSION";
