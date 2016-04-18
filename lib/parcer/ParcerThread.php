@@ -14,10 +14,12 @@
 class ParcerThread extends Thread
 {
 
-    private $queue;
+    private $inputQueue;
+    private $outputQueue;
 
-    public function __construct(EntryQueue $queue){
-        $this->queue = $queue;
+    public function __construct(EntryQueue $inputQueue, OutputQueue $outputQueue){
+        $this->inputQueue = $inputQueue;
+        $this->outputQueue = $outputQueue;
     }
 
     public function run(){
