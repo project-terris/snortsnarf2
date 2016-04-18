@@ -10,7 +10,7 @@
 /**
  * Class HTMLWriter writes the specified entry to file using the snortsnarf folder structure of organizing its entries
  */
-class HTMLWriter implements IWriter
+class HTMLWriter extends Thread implements IWriter
 {
     private $rootDirectory;
     private $outputQueue;
@@ -18,6 +18,12 @@ class HTMLWriter implements IWriter
     public function __construct(OutputQueue $queue, $rootDirectory = (__ROOTDIR__ . "/www")){
         $this->outputQueue = $queue;
         $this->rootDirectory = $rootDirectory;
+    }
+
+    public function run(){
+        Logger::debug($this->getThreadId() ." - Starting Thread\n");
+
+
     }
 
 

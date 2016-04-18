@@ -40,7 +40,7 @@ class WriterFactory
 
 
         }else{
-            //we are doing db connecition out
+            //we are doing db connection out
             throw new WriterException("WriterFactory - SQL Output Is Currently Not Supported. Please Try A Different Configuration");
         }
 
