@@ -37,6 +37,7 @@ class Logger
      * @param $message String - the message being printed
      */
     public static function debug($message){
+        //var_dump(self::$flags);
         if(self::$flags->DEBUG){
             print($message);
         }

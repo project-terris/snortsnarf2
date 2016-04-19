@@ -1,11 +1,17 @@
 <?php
 require_once('./lib/AutoLoader.php');
+
 /**
  * Created by PhpStorm.
  * User: bensoer
  * Date: 22/02/16
  * Time: 4:06 PM
  */
+
+/**
+ * ROOTDIR is a constant that defines the root directory so that all classes in snortsnarf2 can create absolute directories
+ */
+define('__ROOTDIR__', __DIR__);
 
 /**
  * displayVersion displays version information for snortsnarf2
@@ -50,25 +56,33 @@ function main($argc, $argv){
     Logger::setLogger($arguments->getFlags());
     //Logger::debug($formattedArguments);
 
-    //get whatever we are reading data from -> The returned type is an IReader
+    //determine writing location / output type
+    $outputQueue = new OutputQueue();
+    $outputDestination = WriterFactory::determineOutput($arguments, $outputQueue);
+
+    //determine reading location / input type
+    $entryToParseQueue = new EntryQueue();
     $dataSource = ReaderFactory::determineSource($arguments);
 
+    //start the output thread
+    $outputDestination->start();
+
+    //determine how many parser threads were making
     $numberOfParserThreads = $arguments->getValue(PARAMETERKEYS::PARSERTHREADS);
     if($numberOfParserThreads == null){
         $numberOfParserThreads = 3;
     }
 
-    $entryToParseQueue = new EntryQueue();
     $allThreads = array();
     //now start creating threads
     for($i = 0; $i < $numberOfParserThreads; $i++){
-        $parcerThread = new ParcerThread($entryToParseQueue);
+        $parcerThread = new ParcerThread($entryToParseQueue, $outputQueue, get_class($outputDestination));
         $allThreads[] = $parcerThread;
     }
 
     //tell threads to begin executing
 
-    //now start getting each entry and putting them into the AlertManager
+    //now start getting each entry and putting them into the EntryQueue
     $count = 0;
     while(($entry = $dataSource->getNextEntry()) != null){
         $count++;
