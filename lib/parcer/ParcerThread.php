@@ -18,14 +18,19 @@ class ParcerThread extends Thread
     private $outputQueue;
     private $outputType;
 
-    public function __construct(EntryQueue $inputQueue, OutputQueue $outputQueue, $outputType){
+    private $loggerFlags;
+
+    public function __construct(EntryQueue $inputQueue, OutputQueue $outputQueue, $outputType, FLAGS $flags){
         $this->inputQueue = $inputQueue;
         $this->outputQueue = $outputQueue;
         $this->outputType = $outputType;
+
+        $this->loggerFlags = $flags;
     }
 
     public function run(){
-        Logger::debug($this->getThreadId() ." - Starting Thread\n");
+        Logger::setLogger($this->loggerFlags);
+        Logger::debug($this->getThreadId() ." - Starting Parser Thread\n");
 
 
     }

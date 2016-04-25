@@ -73,14 +73,22 @@ function main($argc, $argv){
         $numberOfParserThreads = 3;
     }
 
+    print("HERE");
+
     $allThreads = array();
     //now start creating threads
     for($i = 0; $i < $numberOfParserThreads; $i++){
-        $parcerThread = new ParcerThread($entryToParseQueue, $outputQueue, get_class($outputDestination));
+        //print("NOW HERE");
+        $flags = Logger::getFlags();
+        //var_dump($flags);
+        $parcerThread = new ParcerThread($entryToParseQueue, $outputQueue, get_class($outputDestination), $flags);
         $allThreads[] = $parcerThread;
     }
 
     //tell threads to begin executing
+    foreach($allThreads as $thread){
+        $thread->start();
+    }
 
     //now start getting each entry and putting them into the EntryQueue
     $count = 0;

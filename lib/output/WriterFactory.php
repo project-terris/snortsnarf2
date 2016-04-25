@@ -25,7 +25,7 @@ class WriterFactory
                     mkdir(__ROOTDIR__ . "/www");
                 }
 
-                $htmlWriter = new HTMLWriter($queue);
+                $htmlWriter = new HTMLWriter($queue, Logger::getFlags());
                 return $htmlWriter;
 
             }else{
