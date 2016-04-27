@@ -15,7 +15,7 @@
 class EntryQueue
 {
 
-    private static $unsortedAlerts;
+    private $unsortedAlerts;
     private $sortedAlerts;
 
     //private $semaphore;
