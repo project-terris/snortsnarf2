@@ -15,14 +15,18 @@ class HTMLWriter extends Thread implements IWriter
     private $rootDirectory;
     private $outputQueue;
 
-    public function __construct(OutputQueue $queue, $rootDirectory = (__ROOTDIR__ . "/www")){
+    private $loggerFlags;
+
+    public function __construct(OutputQueue $queue, FLAGS $flags, $rootDirectory = (__ROOTDIR__ . "/www")){
         $this->outputQueue = $queue;
         $this->rootDirectory = $rootDirectory;
+        $this->loggerFlags = $flags;
     }
 
     public function run(){
-        //Logger::debug(" " . $this->getThreadId() ." - Starting " . strval(self::class) . " Thread\n");
-        Logger::debug("HELLOO");
+        Logger::setLogger($this->loggerFlags);
+        Logger::debug(" " . $this->getThreadId() ." - Starting " . strval(self::class) . " Thread\n");
+
 
 
     }

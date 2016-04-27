@@ -17,10 +17,11 @@ class Logger
      * @param FLAGS $settings - A FLAG object contain the settings of what locations are allowed to be logged to
      */
     public static function setLogger(FLAGS $settings){
-        if(!self::$isSet){
-            self::$flags = $settings;
-            self::$isSet = true;
-        }
+        self::$flags = $settings;
+    }
+
+    public static function getFlags(){
+        return self::$flags;
     }
 
 

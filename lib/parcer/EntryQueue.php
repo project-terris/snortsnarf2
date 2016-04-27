@@ -8,14 +8,14 @@
  */
 
 /**
- * Class AlertManager is a shared resource that stores the alert values that have been parced out of the alert file.
- * From here threads will query for a segment of an alert to parce apart into an appropriate object and give back to
+ * Class AlertManager is a shared resource that stores the alert values that have been parsed out of the alert file.
+ * From here threads will query for a segment of an alert to parse apart into an appropriate object and give back to
  * the alert object in their formatted state
  */
 class EntryQueue
 {
 
-    private $unsortedAlerts;
+    private static $unsortedAlerts;
     private $sortedAlerts;
 
     //private $semaphore;
@@ -33,7 +33,7 @@ class EntryQueue
     }
 
     /**
-     * getUnsortedAlert gets an unsorted alert from the unsortedAlert array. The method uses a mutex to encofrce mutual
+     * getUnsortedAlert gets an unsorted alert from the unsortedAlert array. The method uses a mutex to enforce mutual
      * exclusion
      * @return DataEntry|null - An alert needing to be sorted or NULL if the queue is empty
      */
@@ -41,11 +41,11 @@ class EntryQueue
         //sem_acquire($this->semaphore);
         Mutex::lock($this->mutex);
 
-        $alert =  array_pop($this->unsortedAlerts);
+        $alert = array_pop($this->unsortedAlerts);
         //sem_release($this->semaphore);
+
         Mutex::unlock($this->mutex);
         return $alert;
-
     }
 
     public function setUnsortedAlert(DataEntry $alert){
