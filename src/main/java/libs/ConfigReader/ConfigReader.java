@@ -45,25 +45,16 @@ public class ConfigReader
 
     private static boolean getBoolean(String propName) { return Boolean.valueOf(getProp(propName));}
 
-    public static String getProp(String propName)
+    private static String getProp(String propName)
     {
         return properties.getProperty(propName);
     }
 
-    public static int getIntProp(String propName)
+    private static int getIntProp(String propName)
     {
         return new Integer(properties.getProperty(propName));
     }
 
-    public static boolean getDebug() {return new Boolean(getProp("Debug"));}
+    public static boolean getDebug() {return new Boolean(getProp("DEBUG"));}
 
-    public static int getBufferSize() {return getIntProp("BufferSize");}
-
-    public static boolean getLogToShell() { return getBoolean("LogToShell"); }
-
-    public static boolean getLogToShellVerbose() { return getBoolean("LogToShellVerbose");}
-
-    public static boolean getLogToFileVeryVerbose() { return getBoolean("LogToFileVeryVeryVerbose");}
-
-    public static String getLogFileName() { return getProp("LogFileName"); }
 }
